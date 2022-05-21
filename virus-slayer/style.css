@@ -11,7 +11,8 @@ body{
 .modal-start-game{
     width: 100%;
     height: 100vh;
-    position: fixed;
+    position: absolute;
+    z-index: 100;
     background-color: black;
     display: none;
 }
@@ -22,82 +23,93 @@ body{
     justify-content: center;
     align-items: center;
 }
-.modal-start-game form{
+.modal-start-game section{
     width: 40%;
     padding: 30px;
-    border: 1px solid white;
+    border: 1px dotted white;
 }
-.modal-start-game ol{
-    margin-left: 10px;
-}
-.modal-start-game input,.modal-start-game button{
-    width: 70%;
-    padding: 10px;
-    margin: 10px auto;
+.modal-start-game section img{
     display: block;
+    margin: 10px auto;
+}
+.modal-start-game input ,.modal-start-game button{
+    display: block;
+    width: 70%;
+    margin: 10px auto;
+    padding: 10px;
     color: black;
 }
-.modal-start-game button{
-    
-    background-color: red;
-}
-.modal-game-over{
+
+.counter-time{
     width: 100%;
     height: 100vh;
-    background-color: black;
     position: fixed;
-    text-align: center;
+    z-index: 111;
+    background-color: rgba(21, 15, 15, 0.542);
     display: none;
 }
-.modal-game-win{
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-    position: fixed;
-    text-align: center;
-    display: none;
-    z-index: 9999;
-}
-.counttime{
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-    position: fixed;
-    text-align: center;
-    display: none; 
-}
-.counttime div{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-}
-.modal-game-over div,.modal-game-win div{
+.counter-time div{
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.modal-game-over form,.modal-game-win form{
-    width: 40%;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid white;
+.modal-game-win{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: black;
+    z-index: 112;
+    display: none;
 }
-.modal-game-over button{
-    background-color: red;
-    padding: 10px;
-    display: block;
+.modal-game-win div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.modal-game-win section{
+    width: 40%;
+    padding:10px;
     margin: auto;
 }
 .modal-game-win button{
-    background-color: rgb(255, 234, 0);
     padding: 10px;
+    background-color: orange;
+    margin: auto;
     display: block;
+}
+.modal-game-over{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: black;
+    z-index: 113;
+    display: none;
+}
+.modal-game-over div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.modal-game-over section{
+    width: 40%;
+    padding:10px;
     margin: auto;
 }
+.modal-game-over button{
+    padding: 10px;
+    background-color: rgb(255, 0, 34);
+    margin: auto;
+    display: block;
+}
+/* content */
 .content{
     width: 100%;
     height: 100vh;
@@ -105,68 +117,73 @@ body{
     justify-content: space-evenly;
 }
 .game-text{
-    width: 30%;
+    width: 25%;
     height: 100%;
 }
 .game-text div{
-    width: 50%;
+    width: 100%;
     height: 50%;
     padding: 10px;
 }
 .game-text button{
     display: block;
     padding: 10px;
-    color:  black;
     background-color: blue;
     border: none;
-    margin: 10px 0;
-    border-radius: 20px;
+    margin-top: 10px;
 }
 .game{
-    width: 69%;
+    width: 70%;
+    height: 100%;
 }
 .game-body{
-    width: 50%;
+    width: 45%;
     height: 100%;
     border: 1px solid grey;
+    background-color: black;
 }
 .game-block{
     width: 100%;
     height: 70%;
     display: flex;
 }
-#blockA,#blockB,#blockC{
+#blockD,#blockF,#blockJ{
     width: 25%;
     height: 100%;
     border-right: 1px solid white;
 }
-#blockD{
+#blockK{
     width: 25%;
     height: 100%;
 }
 .game-pembatas{
     width: 100%;
     height: 2%;
-    background-color: rgb(255, 238, 0);
+    background-color: red;
+    border: 1px solid yellow;
 }
 .game-key{
     width: 100%;
     height: 28%;
     display: flex;
 }
-.keyA,.keyB,.keyC,.keyD{
+.game-key div{
     width: 25%;
     height: 100%;
-    border: 1px solid white;
+    background-color: rgb(97, 20, 130);
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    background-color: rgb(86, 150, 150);
 }
-.game-key img{
-    border-radius: 50%;
-}
-.game-key div:hover{
-    transform: scale(0.8);
+@media screen and (max-width:699px) {
+    body{
+        font-size: 0.7em;
+    }
+    .game-body{
+        width: 90%;
+    }
+    .modal-start-game section,.modal-game-over section,.modal-game-win section{
+        width: 80%;
+    }
 }

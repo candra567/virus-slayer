@@ -1,187 +1,213 @@
+/**
+ * inisialisasi variabel dalam dom html
+ */
+let modalStartGame=document.querySelector('.modal-start-game');
+let username=document.querySelector('#username');
+let btnStartGame=document.querySelector('.btn-start-game');
+let counterTimeText=document.querySelector('.counter-time-text');
+let modalGameWin=document.querySelector('.modal-game-win');
+let winName=document.querySelector('.win-name');
+let winScore=document.querySelector('.win-score');
+let winTime=document.querySelector('.win-time');
+let winFail=document.querySelector('.win-fail');
+let modalGameOver=document.querySelector('.modal-game-over');
+let overName=document.querySelector('.over-name');
+let overScore=document.querySelector('.over-score');
+let overTime=document.querySelector('.over-time');
+let overFail=document.querySelector('.over-fail');
+window.onload=()=>{modalStartGame.style.display="block"}
+// content
+let timeText=document.querySelector('.time-text');
+let nameText=document.querySelector('.name-text');
+let scoreText=document.querySelector('.score-text');
+let failText=document.querySelector('.fail-text');
+let btnPlayGame=document.querySelector('.btn-play-game');
+// block
+let blockD=document.querySelector('#blockD');
+let blockF=document.querySelector('#blockF');
+let blockJ=document.querySelector('#blockJ');
+let blockK=document.querySelector('#blockK');
+let keyD=document.querySelector('.keyD');
+let keyF=document.querySelector('.keyF');
+let keyJ=document.querySelector('.keyJ');
+let keyK=document.querySelector('.keyK');
+/**
+ * global variable game
+ */
 let score=0;
 let fail=0;
-let scoretext=document.querySelector('.text-score');
-let failtext=document.querySelector('.text-fail');
-let texttime=document.querySelector('.text-time');
+let time=3;
 let menit=3;
 let detik=59;
-let btnplay=document.querySelector('#btn-play');
-let btnstartgame=document.querySelector('.btn-start-game');
-let username=document.querySelector('#username');
-let counttime=document.querySelector('.counttime h1');
-let time=3;
-username.addEventListener('keydown',function(){
-    if (this.value!="") {
-        btnstartgame.removeAttribute('disabled');
-        return;
-    }
-    btnstartgame.setAttribute('disabled','');
-
-})
-btnstartgame.addEventListener('click',function(event){
-    event.preventDefault();
-    modalstartgame.style.display="none";
-    document.querySelector('.counttime').style.display='block';
-    setInterval(() => {
-        time--;
-        counttime.textContent=time;
-        if (time<0) {
-            document.querySelector('.counttime').style.display='none';
-        }
-    }, 1000);
-})
-
-// modal game
-let modalstartgame=document.querySelector('.modal-start-game');
-modalstartgame.style.display="block";
+let intervalA,intervalB,intervalC,intervalD;
+/**
+ * canvas configuration
+ */
 function Canvas(canvas,xPost,yPost,img)
 {
     this.canvas=canvas;
+    this.ctx=canvas.getContext('2d');
     this.xPost=xPost;
     this.yPost=yPost;
-    this.ctx=canvas.getContext('2d');
-    this.ctxH=canvas.height/5;
     this.img=img;
-    this.yDanger=this.canvas.height-70;
+    this.ctxH=canvas.height/5;
+    this.yDanger=this.canvas.height-80;
+    /**
+     * draw canvas
+     */
     this.drawCanvas=function(){
         let image=new Image();
-        image.src=this.img;
+        image.src=img;
         this.ctx.save();
-        this.ctx.clearRect(0,0,canvas.width,canvas.height);
-        this.ctx.fillStyle='rgba(200,0,0,0.7)';
-        this.ctx.fillRect(0,this.yDanger,this.canvas.width,70)
+        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        this.ctx.fillStyle="rgba(190,0,0,0.5)";
+        this.ctx.fillRect(0,this.yDanger,this.canvas.width,80)
         image.onload=()=>{
             this.ctx.drawImage(image,this.xPost,this.yPost,this.canvas.width,this.ctxH);
         }
         this.ctx.restore();
         this.yPost++;
-        // kalau virus mengenei pembatas
+        // jika virus mengenail pembatas
         if (this.yPost==this.canvas.height-this.ctxH) {
-            this.yPost=0-Math.ceil(Math.random()*30);
+            this.yPost=-30;
             fail+=1;
         }
-    
     }
     this.renderCanvas=function(){
         return setInterval(() => {
             this.drawCanvas();
         }, 100);
-     }
-    //  action users
+    }
+    // aksi users
     this.actionUsers=function(){
         if (this.yPost>this.yDanger) {
-            this.yPost=-40;
-            score+=5
+           score+=5;
+           this.yPost=-30;
         }
     }
-    
 }
-let blockA=new Canvas(document.querySelector('#blockA'),0,0,'img/virus.png');
-let blockB=new Canvas(document.querySelector('#blockB'),0,0,'img/virus-g93561ac1b_1920.png');
-let blockC=new Canvas(document.querySelector('#blockC'),0,0,'img/virus.png');
-let blockD=new Canvas(document.querySelector('#blockD'),0,0,'img/coronavirus-gaedba68d4_1280.png');
-let intervalA,intervalB,intervalC,intervalD,intervalTime;
-// jalankan game
-btnplay.addEventListener('click',function(){
-    if (this.textContent=="PLAY") {
-        intervalA=blockA.renderCanvas();
-    intervalB=blockB.renderCanvas();
-    intervalC=blockC.renderCanvas();
-    intervalD=blockD.renderCanvas();
-    this.textContent="PAUSE";
-            // key down handeler
-        window.addEventListener('keydown',function(event){
-            if (event.key=="d"||event.key=="D") {
-                blockA.actionUsers();
-                keyA.style.transform="scale(0.8)"
-            }
-        else if (event.key=="f"||event.key=="F") {
-            blockB.actionUsers();
-            keyB.style.transform="scale(0.8)"
-        }
-        else if (event.key=="j"||event.key=="K") {
-            blockC.actionUsers();
-            keyC.style.transform="scale(0.8)"
-        }
-        else if (event.key=="k"||event.key=="K") {
-            blockD.actionUsers();
-            keyD.style.transform="scale(0.8)"
-        }
-        })
-        window.addEventListener('keyup',function(event){
-        if (event.key=="d"||event.key=="D") {
-            blockA.actionUsers();
-            keyA.style.transform="scale(1)"
-        }
-        else if (event.key=="f"||event.key=="F") {
-            blockB.actionUsers();
-            keyB.style.transform="scale(1)"
-        }
-        else if (event.key=="j"||event.key=="K") {
-            blockC.actionUsers();
-            keyC.style.transform="scale(1)"
-        }
-        else if (event.key=="k"||event.key=="K") {
-            blockD.actionUsers();
-            keyD.style.transform="scale(1)"
-        }
-        })
-    // time
-    setInterval(() => {
-        detik--;
-        if (detik == 00) {
-            detik=59;
-            menit--;
-        }
-        else if(menit == 0 && detik==01){
-           document.querySelector('.modal-game-over').style.display='block';
-        }
-        texttime.innerHTML="TIME "+menit+"."+detik;
-    }, 1000);
+let canvasD=new Canvas(blockD,0,0,'img/virus.png');
+let canvasF=new Canvas(blockF,0,-20,'img/virus-g93561ac1b_1920.png');
+let canvasJ=new Canvas(blockJ,0,-30,'img/virus-g93561ac1b_1920.png');
+let canvasK=new Canvas(blockK,0,0,'img/virus.png');
+username.addEventListener('keydown',function(){
+    if (this.value!="") {
+        btnStartGame.removeAttribute('disabled');
+    } else {
+        btnStartGame.setAttribute('disabled','')
     }
-    else{
-        clearInterval(intervalA);
-        clearInterval(intervalB);
-        clearInterval(intervalC);
-        clearInterval(intervalD);
-        this.textContent="PLAY"
-    }
-    
-})
-let keyA=document.querySelector('.keyA');
-let keyB=document.querySelector('.keyB');
-let keyC=document.querySelector('.keyC');
-let keyD=document.querySelector('.keyD');
-
-keyA.addEventListener('click',function(){
-    blockA.actionUsers()
 });
-keyB.addEventListener('click',function(){
-    blockB.actionUsers();
+btnStartGame.addEventListener('click',function(){
+    modalStartGame.style.display="none";
+    nameText.innerHTML="NAME \t"+username.value;
+    document.querySelector('.counter-time').style.display="block";
+    setInterval(() => {
+        if (time<=0) {
+            document.querySelector('.counter-time').style.display="none";
+        }
+        counterTimeText.innerHTML=time--;
+    }, 1000);
 })
-keyC.addEventListener('click',function(){
-    blockC.actionUsers();
-})
-keyD.addEventListener('click',function(){
-    blockD.actionUsers();
-})
-
-
-// pengatran score
-setInterval(() => {
-    scoretext.textContent="SCORE "+score+"%";
-    failtext.textContent="FAIL "+fail+"";
-    if (fail==5) {
-        document.querySelector('.modal-game-over').style.display='block'
+// kalau users memulai game
+btnPlayGame.addEventListener('click',function(){
+    if (this.textContent=="PLAY NOW") {
+        this.textContent="PAUSE";
+        intervalA=canvasD.renderCanvas();
+        intervalB=canvasF.renderCanvas();
+        intervalC=canvasJ.renderCanvas();
+        intervalD=canvasK.renderCanvas();
+        // keyboard handler
+        keyD.addEventListener('click',function(){
+            canvasD.actionUsers();
+        });
+        keyF.addEventListener('click',function(){
+            canvasF.actionUsers();
+        });
+        keyJ.addEventListener('click',function(){
+            canvasJ.actionUsers();
+        });
+        keyK.addEventListener('click',function(){
+            canvasK.actionUsers();
+        });
+        // 
+        window.addEventListener('keydown',effectKeyboard);
+        window.addEventListener('keyup',upeffectKeyboard);
+     intervalTime=setInterval(() => {
+            timeText.innerHTML="Time \t"+menit+"\t"+detik;
+            detik--;
+            if (detik==00) {
+                menit--
+                detik=59
+            }
+        }, 1000);
+    } else {
+        this.textContent="PLAY NOW";
+        cleanInterval();
     }
-    else if (score>=100){
-        document.querySelector('.modal-game-win').style.display='block'
+});
+// clear interval
+function cleanInterval(){
+    clearInterval(intervalA);
+    clearInterval(intervalB);
+    clearInterval(intervalC);
+    clearInterval(intervalD);
+    clearInterval(intervalTime)
+    return;
+}
+function effectKeyboard(event){
+    if (event.key=="d"||event.key=="D") {
+        keyD.style.transform="scale(0.8)";
+        canvasD.actionUsers();
+    }
+    else if(event.key=="f"||event.key=="F"){
+        keyF.style.transform="scale(0.8)";
+        canvasF.actionUsers();
+    }
+    else if(event.key=="j"||event.key=="J"){
+        keyJ.style.transform="scale(0.8)";
+        canvasJ.actionUsers();
+    }
+    else if(event.key=="k"||event.key=="K"){
+        keyK.style.transform="scale(0.8)";
+        canvasK.actionUsers();
+    }
+}
+function upeffectKeyboard(event){
+    if (event.key=="d"||event.key=="D") {
+        keyD.style.transform="scale(1)"
+    }
+    else if(event.key=="f"||event.key=="F"){
+        keyF.style.transform="scale(1)"
+    }
+    else if(event.key=="j"||event.key=="J"){
+        keyJ.style.transform="scale(1)"
+    }
+    else if(event.key=="k"||event.key=="K"){
+        keyK.style.transform="scale(1)"
+    }
+}
+
+/**
+ * score configuartion
+ */
+setInterval(() => {
+    scoreText.textContent="SCORE \t"+score+"%";
+    failText.textContent="FAIL \t"+fail;
+    //kalau game over
+    if (fail>=4) {
+        modalGameOver.style.display='block';
+        overScore.innerHTML="Score "+score;
+        overFail.innerHTML="FAIL"+fail;
+        overName.innerHTML="NAME \t"+username.value;
+        overTime.innerHTML="TIME "+menit+"."+detik;
+        cleanInterval()
+    }
+    else if(score>=100){
+        modalGameWin.style.display="block";
+        winFail.innerHTML="FAIL ="+fail;
+        winScore.innerHTML="SCORE"+score;
+        winName.innerHTML="NAAME \t"+username.value;
+        winTime.innerHTML="TIME "+menit+"."+detik;
+        cleanInterval();
     }
 }, 100);
-// config
-let overname=document.querySelector('.name3')
-let winname=document.querySelector('.name2')
-let contentname=document.querySelector('.name1')
-overname.textContent="Name"+username.value;
-winname.textContent="Name"+username.value;
-contentname.textContent="Name"+username.value;
