@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRUS SLAYER</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <!-- modal start -->
+   <div class="modal-start-game">
+       <div>
+           <form>
+               <h2>INTRUKSI GAME</h2>
+               <ol>
+                   <li>Input username and click play</li>
+                   <li>Destroy virus with press D,F,J,K keyboard</li>
+                   <li>Reach high score</li>
+                   <li>Press button play game to start game</li>
+                   <li>Enjoy</li>
+               </ol>
+               <input type="text" id="username" placeholder="Input your name">
+               <button disabled class="btn-start-game">START GAME</button>
+           </form>
+       </div>
+   </div>
+   <!-- modal-start -->
+   <!-- modal game over -->
+   <div class="modal-game-over">
+       <div>
+           <form>
+               <h3>GAME OVER</h3>
+               <p class="name3">NAME</p>
+               <p class="text-score">Score</p>
+               <p>TIME</p>
+               <button  onclick="window.location.reload()">RESTART</button>
+           </form>
+       </div>
+   </div>
+   <div class="counttime">
+       <div>
+        <h1>3</h1>
+       </div>
+   </div>
+    <!-- modal game win -->
+    <div class="modal-game-win">
+        <div>
+            <form>
+                <h3>WIN</h3>
+                <p class="name2">NAME</p>
+                <p class="text-score" >Score</p>
+                <p >TIME</p>
+                <button  onclick="window.location.reload()">RESTART</button>
+            </form>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <div class="game-text">
+            <div>
+                <p class="text-time">TIME</p>
+                <P class="name1">NAME</P>
+                <P class="text-score">SCORE</P>
+                <p class="text-fail">FAILS</p>
+            </div>
+            <div>
+                <h2>VIRUS SLAYER</h2>
+                <button id="btn-play">PLAY</button>
+                <button onclick="window.location.reload()">RESTART</button>
+                <button  onclick="window.location.reload()">QUIT</button>
+            </div>
+        </div>
+        <div class="game">
+            <div class="game-body">
+                <div class="game-block">
+                    <canvas id="blockA"></canvas>
+                    <canvas id="blockB"></canvas>
+                    <canvas id="blockC"></canvas>
+                    <canvas id="blockD"></canvas>
+                </div>
+                <div class="game-pembatas"></div>
+                <div class="game-key">
+                    <div class="keyA"><img src="img/protect.png" width="80%" height="80%">A</div>
+                    <div class="keyB"><img src="img/protect.png" width="80%" height="80%">B</div>
+                    <div class="keyC"><img src="img/protect.png" width="80%" height="80%">C</div>
+                    <div class="keyD"><img src="img/protect.png" width="80%" height="80%">D</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
